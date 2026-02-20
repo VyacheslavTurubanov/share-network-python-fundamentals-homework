@@ -27,11 +27,9 @@ get started with the LeetCode style of thinking.
 
 def roman_to_int(s):
     # 1. Create variables to store the Roman symbols and their integer values.
-    
-    
+
     # 2. Create a variable to keep track of the total sum.
-    
-    
+
     # 3. Loop through the string 's'. 
     # Hint: You may need to look at the current character and the next character
     # to determine if subtraction should occur.
