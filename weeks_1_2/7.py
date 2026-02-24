@@ -25,18 +25,53 @@ get started with the LeetCode style of thinking.
 # X can be placed before L (50) and C (100) to make 40 and 90. 
 # C can be placed before D (500) and M (1000) to make 400 and 900.
 
+
+# I understood what needed to be done logically, but I struggled to implement it syntactically.
+
 def roman_to_int(s):
-    # 1. Create variables to store the Roman symbols and their integer values.
+    roman_values = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000,
+    }
+
+    total_sum = 0
+
+    for i in range(len(s)):
+        if i == len(s) - 1:
+            total_sum += roman_values[s[i]]
+
+        elif roman_values[s[i]] < roman_values[s[i + 1]]:
+            total_sum -= roman_values[s[i]]
+
+        else:
+            total_sum += roman_values[s[i]]
+
+    return total_sum
+
+print(roman_to_int("IV"))
+
+
+
 
     # 2. Create a variable to keep track of the total sum.
 
-    # 3. Loop through the string 's'. 
-    # Hint: You may need to look at the current character and the next character
-    # to determine if subtraction should occur.
+
+
+# 3. Loop through the string 's'.
+# Hint: You may need to look at the current character and the next character
+# to determine if subtraction should occur
+
+
+
+
     
-    
-    # 4. Return the final total sum.
-    pass
+# 4. Return the final total sum.
+
 
 # --- Test Cases ---
 # Test your function with these values:
