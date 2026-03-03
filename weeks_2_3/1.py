@@ -16,33 +16,45 @@ points = [1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 
 # 1. We have provided you with two lists, letters and points. Create a dictionary 
 # called letter_to_points that maps each letter to its point value.
 
-
+def put_letters_to_dict(letters_list, points_list):
+    letter_to_points_dict = {}
+    for i in range(len(letters_list)):
+        letter_to_points_dict[letters_list[i]] = points_list[i]
+    return letter_to_points_dict
+letter_to_points = put_letters_to_dict(letters, points)
 # 2. Our letters list did not take into account blank tiles. Add an element 
 # to the letter_to_points dictionary that has a key of " " and a point value of 0.
-
+letter_to_points[' '] = 0
+print(letter_to_points)
 
 # --- Score a Word ---
 
 # 3. We want to create a function that will take in a word and return how 
 # many points that word is worth. Define a function called score_word 
 # that takes in a parameter word.
+def score_word(word):
+
 
 
   # 4. Inside score_word, create a variable called point_total and set it to 0.
-
+    point_total = 0
 
   # 5. After defining point_total, create a loop that goes through the letters 
   # in word and adds the point value of each letter to point_total. 
   # If the letter is not in letter_to_points, add 0 to the point_total.
+    for letter in word:
+        point_total += letter_to_points[letter]
 
 
   # 6. After the loop is finished, return point_total.
+    return point_total
 
 
 # 7. Let’s test this function! Create a variable called brownie_points and 
 # set it equal to the value returned by the score_word() function with 
 # an input of "BROWNIE".
-
+brownie_points = score_word("BROWNIE")
+print(brownie_points)
 
 # 8. Print out brownie_points to make sure we got it right. 
 # (The word BROWNIE should earn 15 points).
@@ -59,14 +71,30 @@ points = [1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 
 # | BLUE    | EARTH    | ERASER   | ZAP         |
 # | TENNIS  | EYES     | BELLY    | COMA        |
 # | EXIT    | MACHINE  | HUSKY    | PERIOD      |
+player_to_words = {}
+def create_player_to_words_dict(player, *words):
+  player_to_words_dict = {player: list(words)}
+  return player_to_words_dict
+
+
+player_to_words.update(create_player_to_words_dict('player1', 'BLUE', 'TENNIS', 'EXIT'))
+player_to_words.update(create_player_to_words_dict('wordNerd', 'EARTH', 'EYES', 'MACHINE'))
+player_to_words.update(create_player_to_words_dict('Lexi Con', 'ERASER', 'BELLY', 'HUSKY'))
+player_to_words.update(create_player_to_words_dict('Prof Reader', 'ZAP', 'COMA', 'PERIOD'))
+print(player_to_words)
 
 
 # 10. Create an empty dictionary called player_to_points.
+player_to_points = {}
 
 
 # 11. Iterate through the items in player_to_words. Call each player player 
 # and each list of words words. Within your loop, create a variable 
 # called player_points and set it to 0.
+for player, word in player_to_words:
+    player_points = 0
+    print(player)
+
 
 
   # 12. Within the loop, create another loop that goes through each word 
