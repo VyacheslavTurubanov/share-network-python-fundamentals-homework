@@ -33,8 +33,7 @@ print(letter_to_points)
 # many points that word is worth. Define a function called score_word 
 # that takes in a parameter word.
 def score_word(word):
-
-
+    word=word.upper()
 
   # 4. Inside score_word, create a variable called point_total and set it to 0.
     point_total = 0
@@ -73,14 +72,23 @@ print(brownie_points)
 # | EXIT    | MACHINE  | HUSKY    | PERIOD      |
 player_to_words = {}
 def create_player_to_words_dict(player, *words):
-  player_to_words_dict = {player: list(words)}
-  return player_to_words_dict
+    if player not in player_to_words:
+        player_to_words[player] = list(words)
+    else:
+        player_to_words[player] += list(words)
+    return player_to_words
+
+
 
 
 player_to_words.update(create_player_to_words_dict('player1', 'BLUE', 'TENNIS', 'EXIT'))
 player_to_words.update(create_player_to_words_dict('wordNerd', 'EARTH', 'EYES', 'MACHINE'))
 player_to_words.update(create_player_to_words_dict('Lexi Con', 'ERASER', 'BELLY', 'HUSKY'))
 player_to_words.update(create_player_to_words_dict('Prof Reader', 'ZAP', 'COMA', 'PERIOD'))
+print(player_to_words)
+create_player_to_words_dict('player1', 'UMBRELLA')
+print(player_to_words)
+create_player_to_words_dict('player1', 'RISE')
 print(player_to_words)
 
 
@@ -91,32 +99,60 @@ player_to_points = {}
 # 11. Iterate through the items in player_to_words. Call each player player 
 # and each list of words words. Within your loop, create a variable 
 # called player_points and set it to 0.
-for player, word in player_to_words:
+
+for players, words in player_to_words.items():
     player_points = 0
-    print(player)
 
 
 
-  # 12. Within the loop, create another loop that goes through each word 
+
+  # 12. Within the loop, create another loop that goes through each word
   # in words and adds the value of score_word() with word as an input.
+    for word in words:
+     player_points += score_word(word)
 
 
-  # 13. After the inner loop ends, set the current player value to be 
+
+
+  # 13. After the inner loop ends, set the current player value to be
   # a key of player_to_points, with a value of player_points.
-
+    player_to_points[players] = player_points
 
 # 14. player_to_points should now contain the mapping of players to 
 # how many points they’ve scored. Print this out to see the current standings!
-
+print(player_to_points)
 
 # --- Ideas for Further Practice! ---
 
 # 15. play_word() — a function that takes in a player and a word, 
 # and adds that word to the list of words they’ve played.
+def play_word(player, word):
+    if player in player_to_words:
+        create_player_to_words_dict(player, word)
+#print(player_to_words)
+play_word('player1', 'GAME')
+print(player_to_words)
+play_word('Lexi Con', 'RICH')
+print(player_to_words)
 
 
 # 15. update_point_totals() — turn your nested loops into a function 
 # that you can call any time a word is played.
+def update_point_totals(player_to_points):
+    for players, words in player_to_words.items():
+        player_points = 0
+        for word in words:
+            player_points += score_word(word)
+        player_to_points[players] = player_points
+    return player_to_points
+
+update_point_totals(player_to_points)
+print(player_to_points)
+play_word('wordNerd', 'g')
+print(player_to_words)
+update_point_totals(player_to_points)
+print(player_to_points)
 
 
 # 15. Make your letter_to_points dictionary able to handle lowercase inputs.
+# I did it in line 36
