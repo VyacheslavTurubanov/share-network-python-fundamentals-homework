@@ -1,23 +1,23 @@
-"""
-Project: Basta Fazoolin'
-You’ve started a position as the lead programmer for the family-style Italian restaurant 
-Basta Fazoolin’ with My Heart. The restaurant has been doing fantastically and seen 
-a lot of growth lately. You’ve been hired to keep things organized.
-"""
-
 # --- Making the Menus ---
 
 # 1. Create a Menu class.
 class Menu:
 
 
-# 2. Give Menu a constructor with the five parameters: 
+# 2. Give Menu a constructor with the five parameters:
 # self, name, items, start_time, and end_time.
     def __init__(self, name, items, start_time, end_time):
         self.name = name
         self.items = items
         self.start_time = start_time
         self.end_time = end_time
+
+    def calculate_bill(self, purchased_items):
+         total_bill = 0
+         for item, price in self.items.items():
+             if item in purchased_items:
+                 total_bill += price
+         print(total_bill)
 
 # 3. Create the brunch menu object.
 # Name: 'brunch'
@@ -32,7 +32,7 @@ brunch = Menu('brunch',
 # 4. Create the early_bird menu object.
 # Name: 'early_bird'
 # Time: 3pm to 6pm
-# Items: {'salumeria plate': 8.00, 'salad and breadsticks (serves 2, no refills)': 14.00, 'pizza with quattro formaggi': 9.00, 'duck ragu': 17.50, 'mushroom ravioli (vegan)': 13.50, 'coffee': 1.50, 'espresso': 3.00}
+# Items: {'salumeria plate': 8.00, 'salad and breadsticks (serves 2, no refills)': 14.00, 'pizza with quattro formaggi': 9.00, 'duck ragù': 17.50, 'mushroom ravioli (vegan)': 13.50, 'coffee': 1.50, 'espresso': 3.00}
 early_bird = Menu('early_bird',
                   {'salumeria plate': 8.00, 'salad and breadsticks (serves 2, no refills)': 14.00,
                    'pizza with quattro formaggi': 9.00, 'duck ragu': 17.50, 'mushroom ravioli (vegan)': 13.50,
@@ -58,7 +58,7 @@ kids = Menu('kids',
             '11am', '9pm')
 
 
-# 7. Give the Menu class a string representation method that returns the name 
+# 7. Give the Menu class a string representation method that returns the name
 # of the menu and its availability.
 def show_available_menu(self):
     return f'{self.name} menu available from {self.start_time} to {self.end_time}'
@@ -71,24 +71,28 @@ Menu.__str__ = __str__
 
 # 8. Test the string representation by printing the brunch menu.
 print(brunch.show_available_menu())
-print(brunch)
 
-# 9. Give Menu a method .calculate_bill() that takes self and purchased_items 
+# 9. Give Menu a method .calculate_bill() that takes self and purchased_items
 # (a list of item names) and returns the total price.
+# check func on lane 15
 
 
-# 10. Test .calculate_bill() on the brunch menu with: 
+
+# 10. Test .calculate_bill() on the brunch menu with:
 # ['pancakes', 'home fries', 'coffee']
+brunch.calculate_bill(['pancakes', 'home fries', 'coffee'])
 
-
-# 11. Test .calculate_bill() on the early_bird menu with: 
+# 11. Test .calculate_bill() on the early_bird menu with:
 # ['salumeria plate', 'mushroom ravioli (vegan)']
-
+early_bird.calculate_bill(['salumeria plate', 'mushroom ravioli (vegan)'])
 
 # --- Creating the Franchises ---
 
 # 12. Create a Franchise class.
-
+class Franchise:
+    def __init__(self, address, list_menus):
+        self.address = address
+        self.list_menus = list_menus
 
 # 13. Give Franchise a constructor that takes an address and a list of menus.
 
@@ -101,7 +105,7 @@ print(brunch)
 # 15. Give Franchise a string representation that returns the address.
 
 
-# 16. Give Franchise an .available_menus() method that takes a time and 
+# 16. Give Franchise an .available_menus() method that takes a time and
 # returns a list of Menu objects available at that hour.
 
 
@@ -120,7 +124,7 @@ print(brunch)
 
 
 # 21. Create the first Business:
-# Name: "Basta Fazoolin' with my Heart"
+# Name: "Basta Fazoolin with my Heart"
 # Franchises: [flagship_store, new_installment]
 
 
