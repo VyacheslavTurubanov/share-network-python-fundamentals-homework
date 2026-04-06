@@ -6,13 +6,15 @@ class TooManyBoardsError(Exception):
         return msg
 
 class CheckoutDateError(Exception):
-    pass
+    def __str__(self):
+        msg = 'date error'
+        return msg
 
 class ShoppingCart:
     def __init__(self):
         self.num_surfboards = 0
         self.checkout_date = None
-        self.locals_discount = True
+        self.locals_discount = False
 
     def add_surfboards(self, quantity=1):
         if self.num_surfboards + quantity > 4:
@@ -30,3 +32,5 @@ class ShoppingCart:
 
     def apply_locals_discount(self):
         self.locals_discount = True
+
+

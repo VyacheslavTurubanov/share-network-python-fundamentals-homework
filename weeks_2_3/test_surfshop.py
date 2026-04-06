@@ -8,52 +8,19 @@ Once that is done, you’ll implement some improvements for these tests using mo
 unit testing features (skipping, parameterization, and expected failures). Finally, you’ll 
 have the opportunity to fix bugs that were exposed by your tests.
 
-The shopping cart software for Sam’s Surf Shop lives inside of the file called surfshop.py. 
-Most of our work will take place in tests.py.
-"""
-
-# --- Create your tests ---
-
-# 1. Import both the surfshop and unittest modules.
-
-
-# 2. Create a class which will contain all of your tests. It should inherit 
-# from unittest.TestCase.
-
-
-# 3. The features you need to test have been implemented in the surfshop.ShoppingCart class. 
-# In order to test the inner workings of a class, you will need to create a new instance of the shopping cart. 
-# Don’t worry - you will handle that in the next tasks! 
-# For now, it’s important that every test has a new ShoppingCart object to work with so that 
-# way the test always starts on a clean slate.
-
-# In your class, create a setup fixture that runs before every test. 
-# It should instantiate a new ShoppingCart object and assign it to an instance variable called self.cart. 
-# Your tests can then use self.cart to reference your instance of the ShoppingCart class.
-
-Python
-
-"""
-Project: Sam's Surf Shop
-Welcome to Sam’s Surf Shop! This project will exercise your knowledge of errors and unit 
-testing practices in Python. It will also give you a small taste of testing a full application.
-
-You’ve been hired to create a handful of tests for the shopping cart software at the surf shop. 
-Once that is done, you’ll implement some improvements for these tests using more advanced 
-unit testing features (skipping, parameterization, and expected failures). Finally, you’ll 
-have the opportunity to fix bugs that were exposed by your tests.
-
-The shopping cart software for Sam’s Surf Shop lives inside of the file called surfshop.py. 
+The shopping cart software for Sam’s Surf Shop lives inside of the file called surfshop.py.
 Most of our work will take place in tests.py.
 """
 
 import unittest
-import surfshop
+from weeks_2_3 import surfshop
 import datetime
+
+from weeks_2_3.surfshop import TooManyBoardsError, CheckoutDateError
 
 # --- Shopping Cart Software (surfshop.py logic) ---
 
-class TooManyBoardsError(Exception):
+'''class TooManyBoardsError(Exception):
     pass
 
 class CheckoutDateError(Exception):
@@ -81,7 +48,7 @@ class ShoppingCart:
 
     def apply_locals_discount(self):
         # BUG: This should set self.locals_discount to True
-        pass
+        pass'''
 
 # --- Create your tests ---
 
@@ -91,6 +58,42 @@ class ShoppingCart:
 
 # 2. Next, create a class which will contain all of your tests. 
 # The class can be named whatever you’d like, but it should inherit from unittest.TestCase.
+class TestShoppingCart(unittest.TestCase):
+    def setUp(self):
+        self.cart = surfshop.ShoppingCart()
+
+    def test_add_one_surfboard(self):
+        result = self.cart.add_surfboards(quantity=1)
+        self.assertEqual(result, 'Successfully added 1 surfboard to cart!')
+
+    def test_add_surfboards(self):
+        cases = [
+            (2, 'Successfully added 2 surfboards to cart!'),
+            (3, 'Successfully added 3 surfboards to cart!'),
+            (4, 'Successfully added 4 surfboards to cart!')
+        ]
+
+        for quantity, expected in cases:
+            with self.subTest(quantity=quantity):
+                result = self.cart.add_surfboards(quantity=quantity)
+                self.assertEqual(result, expected)
+
+    @unittest.skip("off-season: no limit on surfboards")
+    def test_too_many_surfboards(self):
+        with self.assertRaises(TooManyBoardsError):
+            self.cart.add_surfboards(quantity=5)
+
+    def test_locals_discount(self):
+       self.cart.apply_locals_discount()
+       self.assertEqual(self.cart.locals_discount, True)
+
+    def test_checkout_date(self):
+        with self.assertRaises(CheckoutDateError):
+            self.cart.set_checkout_date(datetime.datetime(2020, 5, 1))
+
+if __name__ == "__main__":
+    unittest.main()
+
 
 
 # 3. The features you need to test have been implemented in the surfshop.ShoppingCart class. 
@@ -150,7 +153,7 @@ class ShoppingCart:
 
 # 11. Sam has noticed all of your hard work and the fact that your tests found a bug. 
 # You can now start working on the actual shopping cart software!
-# Take a look in surfshop.py. Recall that the ShoppingCart.apply_locals_discount is not 
+# Take a look in surfshop.py. Recall that the ShoppingCart.apply_locals_discount is not
 # setting the ShoppingCart.locals_discount attribute to True, as it should be. Can you fix it?
 # When you do, comment out the expected failure decorator and see if all the tests pass.
 
